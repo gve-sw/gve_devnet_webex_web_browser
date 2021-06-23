@@ -1,0 +1,25 @@
+version: "3"
+services:
+  scheduler:
+    container_name: webex-web
+    restart: always
+    build:
+      context: web-app
+    deploy:
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "5000:5000"
+    command: flask run --host=0.0.0.0 --port=5000
+    volumes:
+      - "./web-app:/usr/src/app"
+    environment:
+      - "TZ=Asia/Singapore"
+    networks:
+      - webnet
+networks:
+  webnet:
+
+# "America/Los_Angeles"
+# "Asia/Singapore"
+# https://en.wikipedia.org/wiki/List_of_tz_database_time_zones “TZ Database Name”
